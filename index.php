@@ -58,8 +58,8 @@
     <div class="banner-footer mb-100">
         <div class="container-fluid">
             <div class="banner-footer-wrapper">
-                <div class="row g-lg-4 gy-5">
-                    <div class="col-lg-3 col-sm-6 d-flex justify-content-start ms-3">
+                <div class="row g-lg-4 gy-5 ms-3">
+                    <div class="col-lg-3 col-sm-6 d-flex justify-content-start">
                         <div class="banner-footer-items style-2">
                             <div class="banner-footer-icon">
                                 <svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
@@ -79,7 +79,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-sm-6 d-flex justify-content-start ms-3">
+                    <div class="col-lg-3 col-sm-6 d-flex justify-content-start">
                         <div class="banner-footer-items">
                             <div class="banner-footer-icon">
                                 <svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
@@ -97,7 +97,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-sm-6 d-flex justify-content-start ms-3">
+                    <div class="col-lg-3 col-sm-6 d-flex justify-content-start">
                         <div class="banner-footer-items">
                             <div class="banner-footer-icon">
                                 <svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
@@ -115,7 +115,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-sm-6 d-flex justify-content-start ms-3">
+                    <div class="col-lg-3 col-sm-6 d-flex justify-content-start">
                         <div class="banner-footer-items">
                             <div class="banner-footer-icon">
                                 <svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
