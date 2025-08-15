@@ -1,4 +1,4 @@
-  <!-- footer section strats here -->
+<!-- footer section strats here -->
   <footer class="fooeter-section">
       <div class="container">
           <div class="row g-lg-3 gy-5 mb-70">
@@ -231,39 +231,20 @@
       });
   </script>
 
-  <!-- Bootstrap Bundle with Popper -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-
-  <!-- Jquery js link -->
+  <!-- load jQuery first (plugins depend on it) -->
   <script data-cfasync="false" src="../../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
   <script src="assets/js/jquery-3.7.1.min.js"></script>
   <script src="assets/js/jquery-ui.js"></script>
-
-  <!-- Counterup js link -->
   <script src="assets/js/waypoints.js"></script>
   <script src="assets/js/jquery.counterup.min.js"></script>
-
-  <!-- Marquee js link -->
   <script src="assets/js/jquery.marquee.min.js"></script>
-
-  <!-- Popper js link -->
-  <script src="assets/js/popper.min.js"></script>
-
-  <!-- Swiper js link -->
+  <script src="assets/js/jquery.fancybox.min.js"></script>
+  <script src="assets/js/jquery.nice-select.min.js"></script>
+  <script src="assets/js/wow.min.js"></script>
   <script src="assets/js/swiper-bundle.min.js"></script>
 
-  <!-- Fancybox js link -->
-  <script src="assets/js/jquery.fancybox.min.js"></script>
-
-  <!-- Nice Select js link -->
-  <script src="assets/js/jquery.nice-select.min.js"></script>
-
-  <!-- Wow js link -->
-  <script src="assets/js/wow.min.js"></script>
-
-  <!-- Bootstrap js link -->
-  <script src="assets/js/bootstrap.min.js"></script>
+  <!-- Keep a single Bootstrap bundle (includes Popper). DO NOT load bootstrap.min.js separately -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
   <!-- Main js link -->
   <script src="assets/js/main.js"></script>
@@ -390,6 +371,46 @@
               }
           })
       }
+  </script>
+
+  <!-- Auth-aware client-side guard: redirect guests when they try to add/view cart/wishlist -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function(){
+      function goToLogin() {
+        const red = encodeURIComponent(window.location.pathname + window.location.search);
+        window.location.href = window.loginUrl + '?redirect=' + red;
+      }
+
+      // desktop user button
+      const topUser = document.getElementById('topbar-user-btn');
+      if (topUser) {
+        topUser.addEventListener('click', function(e){
+          e.preventDefault();
+          const logged = topUser.getAttribute('data-logged') === '1';
+          if (logged) {
+            window.location.href = window.accountUrl;
+          } else {
+            goToLogin();
+          }
+        });
+      }
+
+      // mobile user button
+      const mobileUser = document.getElementById('mobile-topbar-user-btn');
+      if (mobileUser) {
+        mobileUser.addEventListener('click', function(e){
+          e.preventDefault();
+          const logged = mobileUser.getAttribute('data-logged') === '1';
+          if (logged) {
+            window.location.href = window.accountUrl;
+          } else {
+            goToLogin();
+          }
+        });
+      }
+
+      // keep the rest of guest-guard overrides (addtocart/add_to_wishlist) unchanged...
+    });
   </script>
 
   <script>
