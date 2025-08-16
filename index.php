@@ -252,8 +252,8 @@
     <section id="our-story" class="m-5" >
         <div class="container">
             <div class="row gap-2">
-                <div class="col-md-6 text-center text-md-start" data-aos="fade-up">
-                    <h2 class="mb-3">Our Story</h2>
+                <div class="col-md-6" data-aos="fade-up">
+                    <h2 class="mb-3 text-center text-md-start">Our Story</h2>
                     <p class="text-justify text-md-start" >
     
                         Ivoric was born in India - shaped by heritage, driven by craftsmanship, and elevated
