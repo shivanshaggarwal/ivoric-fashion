@@ -137,10 +137,15 @@
                           </li>
                           <li>
                               <a href="refer.php">
-                                  Refer
+                                  Refer & Earn
                                   <svg width="6" height="6" viewBox="0 0 6 6" xmlns="http://www.w3.org/2000/svg">
                                       <circle cx="3" cy="3" r="3" />
                                   </svg>
+                              </a>
+                          </li>
+                          <li>
+                              <a href="refer.php">
+                                   <a href="terms-condition.php">Business Policy, Terms & Condition</a>                                
                               </a>
                           </li>
                       </ul>
@@ -195,11 +200,12 @@
           <div class="container">
               <div class="row">
                   <div class="col-lg-12">
-                      <div class="footer-btm-content">
-                          <div class="copyright-area">
+                      <div class="footer-btm-content justify-content-center">
+                          <div class="copyright-area ">
                               <p> © Copyright 2025 <a href="#">IVORIC </a> </p>
                           </div>
-                          <div class="right-area">
+                            <!-- Our Business Previous code commented -->
+                          <!-- <div class="right-area">
                               <svg width="12" height="12" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
                                   <mask id="mask0_1002_2089" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0"
                                       y="0" width="12" height="12">
@@ -213,7 +219,7 @@
                                   </g>
                               </svg>
                               <p>Our Business <a href="terms-condition.php">Policy, Terms & Condition</a></p>
-                          </div>
+                          </div> -->
                       </div>
                   </div>
               </div>
