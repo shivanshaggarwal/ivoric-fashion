@@ -22,10 +22,3 @@ include('include/function.php');
 <link rel="icon" href="assets/image/favicon.png" type="image/gif" sizes="20x20">
 <!-- Bootstrap CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<!-- expose auth state to client JS -->
-<script>
-    window.isLogged = <?php echo isset($_SESSION['u_id']) ? 'true' : 'false'; ?>;
-    window.loginUrl = 'login.php';
-    window.signupUrl = 'signup.php';
-    window.accountUrl = 'my-account.php';
-</script>

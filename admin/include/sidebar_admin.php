@@ -5,7 +5,7 @@
     <div>
         <div class="logo-wrapper logo-wrapper-center">
             <a href="index.php" data-bs-original-title="" title="">
-                <img class="img-fluid for-white" src="../assets/images/logo.webp" alt="logo">
+                <img class="img-fluid for-white" src="../assets/image/Logo_1.png" alt="logo">
             </a>
             <div class="back-btn">
                 <i class="fa fa-angle-left"></i>
@@ -16,8 +16,8 @@
         </div>
         <div class="logo-icon-wrapper">
             <a href="index.php">
-                <img class="img-fluid main-logo main-white" src="../assets/images/favicon.png" alt="logo">
-                <img class="img-fluid main-logo main-dark" src="../assets/images/favicon.png" alt="logo">
+                <img class="img-fluid main-logo main-white" src="../assets/image/Logo_1.png" alt="logo">
+                <img class="img-fluid main-logo main-dark" src="../assets/image/Logo_1.png" alt="logo">
             </a>
         </div>
         <nav class="sidebar-main">

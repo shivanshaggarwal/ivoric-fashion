@@ -7,8 +7,8 @@
 <meta name="description" content="Fastkart admin is super flexible, powerful, clean &amp; modern responsive bootstrap 5 admin template with unlimited possibilities.">
 <meta name="keywords" content="admin template, Fastkart admin template, dashboard template, flat admin template, responsive admin template, web app">
 <meta name="author" content="pixelstrap">
-<link rel="icon" href="../assets/images/favicon.png" type="image/x-icon">
-<link rel="shortcut icon" href="../assets/images/favicon.png" type="image/x-icon">
+<link rel="icon" href="../assets/image/Logo_1.png" type="image/x-icon">
+<link rel="shortcut icon" href="../assets/image/Logo_1.png" type="image/x-icon">
 <title>Ivoric | Admin</title>
 
 <!-- Google font-->

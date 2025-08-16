@@ -1,36 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <?php
-    include('include/head.php');
-    ?>
+    <?php include('include/head.php'); ?>
 </head>
-
 <body>
+<?php include('include/header.php'); ?>
 
-    <?php
-    include('include/header.php');
-        isLogin();
-    ?>
-    <!-- breadcrumb section strats here -->
-    <div class="breadcrumb-section mb-100"
-        style="background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url(assets/image/inner-page/breadcrumbs-image5.jpg);">
-       
-    </div>
-    <!-- breadcrumb section ends here -->
-    <!-- Start Cart Page -->
-    <div class="cart-page mb-100">
-        <div class="container-lg container-fluid">
+<!-- breadcrumb section -->
+<div class="breadcrumb-section mb-100"
+    style="background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url(assets/image/inner-page/breadcrumbs-image5.jpg);">
+</div>
+
+<!-- Cart Content -->
+<div class="cart-page mb-100">
+    <div class="container-lg container-fluid">
+
+        <?php if (!isset($_SESSION['u_id'])): ?>
+            <!-- Not logged in -->
+            <div class="empty-cart text-center py-5">
+                <img src="https://cdn-icons-png.flaticon.com/512/11329/11329060.png"
+                    alt="Empty Cart" style="max-width:150px; margin-bottom:20px;">
+                <h4>Your shopping cart is empty.</h4>
+                <p>Please log in to view your cart.</p>
+                <div class="mt-4 d-flex justify-content-center gap-3">
+                    <a href="index.php" class="btn btn-outline-dark px-4 py-2 fw-semibold"
+                       style="border-width:2px; border-radius:8px;">
+                        <i class="bi bi-arrow-left me-2"></i> Continue Shopping
+                    </a>
+                    <a href="login.php" class="btn btn-dark px-4 py-2 fw-semibold"
+                       style="border-radius:8px;">
+                        <i class="bi bi-box-arrow-in-right me-2"></i> Login
+                    </a>
+                </div>
+            </div>
+        <?php else: ?>
+            <!-- Logged in user cart details -->
+            <?php
+            // Your original cart HTML starts here
+            // Shopping Cart Table
+            ?>
             <div class="row g-lg-4 gy-5">
-
-                <!-- Shopping Cart Table -->
                 <div class="col-xl-8 col-lg-7">
                     <div class="cart-shopping-wrapper">
                         <div class="cart-widget-title">
                             <h4>My Shopping</h4>
                         </div>
-
                         <table class="cart-table">
                             <thead>
                                 <tr>
@@ -48,7 +62,7 @@
                                             $object = json_decode(json_encode($item), FALSE);
                                             $final_price = $object->product_actual_price * $object->product_quantity;
                                             $total_price += $final_price;
-                                ?>
+                                            ?>
                                             <tr>
                                                 <td data-label="Product Info">
                                                     <div class="product-info-wrapper">
@@ -74,7 +88,7 @@
                                                 <td data-label="Price"><span>₹<?php echo $object->product_actual_price; ?></span></td>
                                                 <td data-label="Total">₹<?php echo $final_price; ?></td>
                                             </tr>
-                                <?php
+                                            <?php
                                             break;
                                         }
                                     }
@@ -84,7 +98,6 @@
                                 ?>
                             </tbody>
                         </table>
-
                         <a href="index.php" class="details-button">
                             Continue Shopping
                             <svg width="10" height="10" viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg">
@@ -93,8 +106,6 @@
                         </a>
                     </div>
                 </div>
-
-                <!-- Order Summary -->
                 <div class="col-xl-4 col-lg-5">
                     <div class="cart-order-sum-area">
                         <div class="cart-widget-title">
@@ -138,17 +149,12 @@
                         </div>
                     </div>
                 </div>
-
             </div>
-        </div>
+        <?php endif; ?>
+
     </div>
+</div>
 
-    <!-- End Cart Page -->
-
-    <?php
-    include('include/footer.php');
-    ?>
+<?php include('include/footer.php'); ?>
 </body>
-
-
 </html>

@@ -3,14 +3,14 @@
                 <div class="header-logo-wrapper p-0">
                     <div class="logo-wrapper">
                         <a href="index.php">
-                            <img class="img-fluid main-logo" src="../assets/images/logo.webp" alt="logo">
-                            <img class="img-fluid white-logo" src="../assets/images/logo.webp" alt="logo">
+                            <img class="img-fluid main-logo" src="../assets/image/Logo_1.png" alt="logo">
+                            <img class="img-fluid white-logo" src="../assets/image/Logo_1.png" alt="logo">
                         </a>
                     </div>
                     <div class="toggle-sidebar">
                         <i class="status_toggle middle sidebar-toggle" data-feather="align-center"></i>
                         <a href="index.php">
-                            <img src="../assets/images/logo.webp" class="img-fluid" alt="">
+                            <img src="../assets/image/Logo_1.png" class="img-fluid" alt="">
                         </a>
                     </div>
                 </div>

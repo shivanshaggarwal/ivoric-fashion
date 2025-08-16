@@ -1,34 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 
-
-
 <head>
-    <?php
-    include('include/head.php');
-    ?>
+    <?php include('include/head.php'); ?>
 </head>
 
 <body>
+<?php include('include/header.php'); ?>
 
+<!-- breadcrumb section -->
+<div class="breadcrumb-section mb-100"
+    style="background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url(assets/image/inner-page/breadcrumbs-image5.jpg);">
+</div>
 
-    <?php
-    include('include/header.php');
-    isLogin();
-    ?>
-    <!-- breadcrumb section strats here -->
-    <div class="breadcrumb-section mb-100"
-        style="background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url(assets/image/inner-page/breadcrumbs-image5.jpg);">
-       
-    </div>
-    <!-- breadcrumb section ends here -->
-    <!-- wishlist section strats here -->
-    <div class="wishlist-section mb-100">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
+<!-- Wishlist Section -->
+<div class="wishlist-section mb-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+
+                <?php if (!isset($_SESSION['u_id'])): ?>
+                    <!-- Not logged in -->
+                    <div class="empty-cart text-center py-5">
+                        <img src="https://cdn-icons-png.flaticon.com/512/11329/11329060.png"
+                            alt="Empty Wishlist" style="max-width:150px; margin-bottom:20px;">
+                        <h4>Your wishlist is empty.</h4>
+                        <p>Please log in to view your wishlist.</p>
+                        <div class="mt-4 d-flex justify-content-center gap-3">
+                            <a href="index.php" class="btn btn-outline-dark px-4 py-2 fw-semibold"
+                               style="border-width:2px; border-radius:8px;">
+                                <i class="bi bi-arrow-left me-2"></i> Continue Shopping
+                            </a>
+                            <a href="login.php" class="btn btn-dark px-4 py-2 fw-semibold"
+                               style="border-radius:8px;">
+                                <i class="bi bi-box-arrow-in-right me-2"></i> Login
+                            </a>
+                        </div>
+                    </div>
+                <?php else: ?>
                     <?php
-                    $user_id = $user['id'];
+                    $user_id = $_SESSION['u_id'];
                     $sql = "SELECT * FROM `wishlists` WHERE `user_id` = '$user_id'";
                     $res = mysqli_query($con, $sql);
 
@@ -39,7 +50,7 @@
                             $ress = mysqli_query($con, $sqll);
                             $roww = mysqli_fetch_assoc($ress);
                             $image = json_decode($roww['image']);
-                    ?>
+                            ?>
                             <div class="wishlist-wrapper mb-30">
                                 <div class="row">
                                     <!-- Product Image & Details -->
@@ -50,7 +61,7 @@
                                             </div>
                                             <div class="product-details">
                                                 <h6><a href="product.php?url=<?php echo $roww['url']; ?>"><?php echo $roww['name']; ?></a></h6>
-                                                <span><strong>Sku:</strong><?php echo $roww['sku'] ?? $roww['id']; ?></span>
+                                                <span><strong>Sku:</strong> <?php echo $roww['sku'] ?? $roww['id']; ?></span>
                                                 <p>₹<?php echo $roww['discounted_price']; ?></p>
                                             </div>
                                         </div>
@@ -84,23 +95,19 @@
 
                                 </div>
                             </div>
-                    <?php
-                        } // end while
+                            <?php
+                        }
                     } else {
                         echo '<p class="text-center">Your wishlist is empty</p>';
                     }
                     ?>
-                </div>
+                <?php endif; ?>
+
             </div>
         </div>
     </div>
+</div>
 
-    <!-- wishlist section ends here -->
-
-
-    <?php
-    include('include/footer.php');
-    ?>
+<?php include('include/footer.php'); ?>
 </body>
-
 </html>
