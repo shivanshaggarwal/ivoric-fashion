@@ -202,7 +202,7 @@
                   <div class="col-lg-12">
                       <div class="footer-btm-content justify-content-center">
                           <div class="copyright-area ">
-                              <p> © Copyright 2025 <a href="#">IVORIC </a> </p>
+                              <p> © Copyright 2025-26 <a href="#">IVORIC </a> </p>
                           </div>
                             <!-- Our Business Previous code commented -->
                           <!-- <div class="right-area">
