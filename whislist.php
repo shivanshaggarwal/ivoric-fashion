@@ -61,7 +61,7 @@
                                             </div>
                                             <div class="product-details">
                                                 <h6><a href="product.php?url=<?php echo $roww['url']; ?>"><?php echo $roww['name']; ?></a></h6>
-                                                <span><strong>Sku:</strong> <?php echo $roww['sku'] ?? $roww['id']; ?></span>
+                                              
                                                 <p>₹<?php echo $roww['discounted_price']; ?></p>
                                             </div>
                                         </div>

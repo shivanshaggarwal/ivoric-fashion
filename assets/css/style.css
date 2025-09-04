@@ -9194,7 +9194,7 @@ header.header3 .button-area .header-btn {
 ========================================*/
 .fooeter-section {
   background: var(--title-color);
-  padding: 110px 0 0px;
+  padding: 70px 0 0px;
 }
 
 @media (max-width: 1199px) {

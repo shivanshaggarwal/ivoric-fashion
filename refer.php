@@ -3,28 +3,7 @@
 
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Swiper css link -->
-    <link rel="stylesheet" href="assets/css/swiper-bundle.min.css">
-    <!-- Fancybox css link -->
-    <link rel="stylesheet" href="assets/css/jquery.fancybox.min.css">
-    <!-- Animation css link -->
-    <link rel="stylesheet" href="assets/css/animate.css">
-    <link rel="stylesheet" href="assets/css/nice-select.css">
-    <!-- bootstrap css link -->
-    <link rel="stylesheet" href="assets/css/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <!-- Boxicon css link -->
-    <link rel="stylesheet" href="assets/css/boxicons.min.css">
-    <!-- My css link -->
-    <link rel="stylesheet" href="assets/css/style.css">
-    <title>Ivoric Lifestyle Private Limited</title>
-    <link rel="icon" href="assets/image/thumbnail.svg" type="image/gif" sizes="20x20">
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <?php     include('include/head.php');  ?>
     <style>
         .step-box:hover {
             background-color: #F6F4F2;

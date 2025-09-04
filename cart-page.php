@@ -57,40 +57,43 @@
                                 <?php
                                 if (isset($_SESSION['cart']) && count($_SESSION['cart']) > 0) {
                                     $total_price = 0;
-                                    foreach ($_SESSION['cart'] as $item) {
-                                        foreach ($item as $data) {
-                                            $object = json_decode(json_encode($item), FALSE);
-                                            $final_price = $object->product_actual_price * $object->product_quantity;
-                                            $total_price += $final_price;
-                                            ?>
-                                            <tr>
-                                                <td data-label="Product Info">
-                                                    <div class="product-info-wrapper">
-                                                        <div class="product-info-img">
-                                                            <img src="media/product/<?php echo $object->product_image; ?>" alt="">
-                                                        </div>
-                                                        <div class="product-info-content">
-                                                            <h6><?php echo $object->product_name; ?></h6>
-                                                            <p><span>Sku: </span><?php echo $object->product_id; ?></p>
-                                                            <div class="quantity-area">
-                                                                <div class="quantity">
-                                                                    <a class="quantity__minus" onclick="update_quantity('<?php echo $object->product_id; ?>','minus')"><span><i class="bi bi-dash"></i></span></a>
-                                                                    <input name="quantity" type="text" class="quantity__input" value="<?php echo $object->product_quantity; ?>">
-                                                                    <a class="quantity__plus" onclick="update_quantity('<?php echo $object->product_id; ?>','plus')"><span><i class="bi bi-plus"></i></span></a>
-                                                                </div>
-                                                            </div>
-                                                            <ul>
-                                                                <li onclick="remove_item_from_cart('<?php echo $object->product_id; ?>')">remove</li>
-                                                            </ul>
-                                                        </div>
+                                    foreach ($_SESSION['cart'] as $key => $item) {
+                                        // Remove the inner foreach loop - it's causing the duplication
+                                        $final_price = $item['product_actual_price'] * $item['product_quantity'];
+                                        $total_price += $final_price;
+                                        ?>
+                                        <tr>
+                                            <td data-label="Product Info">
+                                                <div class="product-info-wrapper">
+                                                    <div class="product-info-img">
+                                                        <img src="media/product/<?php echo $item['product_image']; ?>" alt="">
                                                     </div>
-                                                </td>
-                                                <td data-label="Price"><span>₹<?php echo $object->product_actual_price; ?></span></td>
-                                                <td data-label="Total">₹<?php echo $final_price; ?></td>
-                                            </tr>
-                                            <?php
-                                            break;
-                                        }
+                                                    <div class="product-info-content">
+                                                        <h6><?php echo $item['product_name']; ?></h6>
+                                                        <p><span>Sku: </span><?php echo $item['product_id']; ?></p>
+                                                        <div class="quantity-area">
+                                                            <div class="quantity">
+                                                                <a class="quantity__minus" onclick="update_quantity('<?php echo $item['product_id']; ?>','minus')"><span><i class="bi bi-dash"></i></span></a>
+                                                                <input name="quantity" type="text" class="quantity__input" data-product="<?php echo $item['product_id']; ?>" value="<?php echo $item['product_quantity']; ?>">
+                                                                <a class="quantity__plus" onclick="update_quantity('<?php echo $item['product_id']; ?>','plus')"><span><i class="bi bi-plus"></i></span></a>
+                                                            </div>
+                                                        </div>
+                                                        <ul>
+                                                            <li onclick="remove_item_from_cart('<?php echo $item['product_id']; ?>')">remove</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td data-label="Price">
+                                                <span data-product-price="<?php echo $item['product_id']; ?>" data-price="<?php echo $item['product_actual_price']; ?>">
+                                                    ₹<?php echo $item['product_actual_price']; ?>
+                                                </span>
+                                            </td>
+                                            <td data-label="Total" data-product-total="<?php echo $item['product_id']; ?>">
+                                                ₹<?php echo $final_price; ?>
+                                            </td>
+                                        </tr>
+                                        <?php
                                     }
                                 } else {
                                     echo '<tr><td colspan="3" class="text-center">Your cart is empty</td></tr>';
@@ -115,7 +118,7 @@
                             <ul class="order-summary-list">
                                 <li>
                                     <strong>Sub Total</strong>
-                                    ₹<?php echo isset($total_price) ? $total_price : 0; ?>
+                                    <span data-subtotal>₹<?php echo isset($total_price) ? number_format($total_price, 2) : '0.00'; ?></span>
                                 </li>
                                 <li>
                                     <strong>Shipping</strong>
@@ -137,13 +140,13 @@
                                 </li>
                                 <li>
                                     <strong>Total</strong>
-                                    ₹<?php echo isset($total_price) ? $total_price + 10 : 10; ?>
+                                    <span data-grand-total>₹<?php echo isset($total_price) ? number_format($total_price + 10, 2) : '10.00'; ?></span>
                                 </li>
                             </ul>
                             <form action="checkout-page.php" method="post">
                                 <input type="hidden" name="price" value="<?php echo isset($total_price) ? $total_price + 10 : 10; ?>">
                                 <button type="submit" class="primary-btn mt-40" name="checkout">
-                                    PROCESSED CHECKOUT
+                                    Proceed to CHECKOUT
                                 </button>
                             </form>
                         </div>
@@ -156,5 +159,94 @@
 </div>
 
 <?php include('include/footer.php'); ?>
+
+<script>
+    function update_quantity(product_id, action) {
+        // Find the input for this product
+        const selector = `.quantity__input[data-product="${product_id}"]`;
+        const quantityInput = document.querySelector(selector);
+        if (!quantityInput) return;
+
+        // Let any other UI handlers (main.js) run first, then read the final value.
+        setTimeout(() => {
+            // Read final quantity from input (ensures single increment)
+            let currentQty = parseInt(quantityInput.value) || 1;
+
+            // Defensive: enforce minimum 1
+            if (currentQty < 1) currentQty = 1;
+            quantityInput.value = currentQty;
+
+            // Send AJAX request to update cart on server
+            $.post("ajax.php", {
+                product_id: product_id,
+                quantity: currentQty,
+                update_cart_quantity: "1"
+            }, function(resp) {
+                try {
+                    var data = (typeof resp === 'string') ? JSON.parse(resp) : resp;
+                    if (data.status === "success") {
+                        // Update per-item total from server-calculated value if provided
+                        const totalElement = document.querySelector(`[data-product-total="${product_id}"]`);
+                        if (totalElement && typeof data.item_total !== 'undefined') {
+                            totalElement.textContent = '₹' + Number(data.item_total).toFixed(2).replace(/\.00$/, '');
+                        } else {
+                            // fallback: calculate from per-item price
+                            const priceEl = document.querySelector(`[data-product-price="${product_id}"]`);
+                            if (priceEl) {
+                                const price = parseFloat(priceEl.dataset.price) || 0;
+                                if (totalElement) totalElement.textContent = '₹' + (price * currentQty).toFixed(2).replace(/\.00$/, '');
+                            }
+                        }
+
+                        // Update subtotal / grand total
+                        if (typeof data.cart_total !== 'undefined') {
+                            document.querySelector('[data-subtotal]').textContent = '₹' + Number(data.cart_total).toFixed(2).replace(/\.00$/, '');
+                            document.querySelector('[data-grand-total]').textContent = '₹' + Number(data.cart_total + 10).toFixed(2).replace(/\.00$/, '');
+                            // update hidden checkout price
+                            const hidden = document.querySelector('input[name="price"]');
+                            if (hidden) hidden.value = (Number(data.cart_total) + 10);
+                        } else {
+                            // fallback: recalc client-side totals
+                            updateCartTotals();
+                        }
+
+                        // Update header cart badge if server returned cart_count
+                        if (typeof window.updateCartBadge === 'function' && typeof data.cart_count !== 'undefined') {
+                            window.updateCartBadge(data.cart_count);
+                        }
+                    }
+                    showToast(data.msg, data.status);
+                } catch (e) {
+                    console.error('Invalid JSON from ajax.php (update quantity):', resp, e);
+                    showToast('Server error. Try again.', 'error');
+                }
+            }, 'json').fail(function(xhr, status, err) {
+                console.error('AJAX error (update quantity):', status, err, xhr.responseText);
+                showToast('Server error. Try again.', 'error');
+            });
+        }, 60); // small delay so other handlers run first
+    }
+
+    function updateCartTotals() {
+        let subtotal = 0;
+        
+        // Calculate new subtotal from all items
+        document.querySelectorAll('[data-product-total]').forEach(element => {
+            const totalText = element.textContent.replace('₹', '');
+            subtotal += parseFloat(totalText) || 0;
+        });
+        
+        // Update subtotal display
+        document.querySelector('[data-subtotal]').textContent = '₹' + subtotal.toFixed(2);
+        
+        // Update grand total (subtotal + shipping)
+        const shipping = 10; // Fixed shipping cost
+        const grandTotal = subtotal + shipping;
+        document.querySelector('[data-grand-total]').textContent = '₹' + grandTotal.toFixed(2);
+        
+        // Update hidden input for checkout
+        document.querySelector('input[name="price"]').value = grandTotal;
+    }
+</script>
 </body>
 </html>

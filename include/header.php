@@ -1,15 +1,4 @@
-  <!-- Back To Top -->
-  <!-- <div class="progress-wrap">
-      <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
-          <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
-      </svg>
-      <svg aria-hidden="true" class="arrow" width="16px" height="16px" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg">
-          <path
-              d="M34.9 289.5l-22.2-22.2c-9.4-9.4-9.4-24.6 0-33.9L207 39c9.4-9.4 24.6-9.4 33.9 0l194.3 194.3c9.4 9.4 9.4 24.6 0 33.9L413 289.4c-9.5 9.5-25 9.3-34.3-.4L264 168.6V456c0 13.3-10.7 24-24 24h-32c-13.3 0-24-10.7-24-24V168.6L69.2 289.1c-9.3 9.8-24.8 10-34.3.4z">
-          </path>
-      </svg>
-  </div> -->
-
+<!-- Back To Top -->
 
   <!-- hearder section strats here -->
   <header class="header-area header4">
@@ -19,37 +8,43 @@
                   <div class="main-menu">
                       <div class="mobile-menu-logo">
                           <a href="index.php"><img alt="image" class="img-fluid"
-                                  src="assets/image/Logo_1.png" width="150px"></a>
+                                  src="assets/image/Logo_1.png" width="120px"></a>
                       </div>
                       <ul class="menu-list">
-                          <li><a href="#">MEN</a></li>
-                          <li><a href="#">WOMEN</a></li>
-                          <li><a href="#">FEATURED</a></li>
+                          <li><a href="index.php" style="border: none;"><img alt="image" class="img-fluid"
+                                      src="assets/image/left-logo.png" width="50px"></a></li>
+                          <?php
+                            $catRes = mysqli_query($con, "SELECT * FROM category WHERE status = 1");
+                            while ($catRow = mysqli_fetch_assoc($catRes)) {
+                                echo '<li><a href="category.php?category=' . urlencode($catRow['id']) . '">' . htmlspecialchars($catRow['name']) . '</a></li>';
+                            }
+                            ?>
+
                       </ul>
                   </div>
                   <div class="header-logo">
                       <a href="index.php"><img alt="image" class="img-fluid"
-                              src="assets/image/Logo_1.png" width="150px"></a>
+                              src="assets/image/Logo_1.png" width="120px"></a>
                   </div>
 
                   <div class="nav-right">
                       <ul>
-                          <div class="d-flex align-items-center"
-                              style="border: 1px solid #ccc; border-radius: 50px; padding: 6px 12px; background: #fff; max-width: 350px; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);">
-
-                              <!-- Input -->
+                          <!-- Search Container -->
+                          <div class="position-relative" style="max-width: 350px;">
                               <input type="text"
-                                  class="form-control border-0 shadow-none"
+                                  id="search_input"
+                                  class="form-control"
                                   placeholder="What are you looking for?"
-                                  style="flex: 1; font-size: 14px; padding: 8px;">
+                                  style="padding:8px 12px; border-radius:50px;"
+                                  onkeyup="showPopularSearches(this.value)"
+                                  onkeydown="handleSearch(event)">
 
-                              <!-- Search Icon -->
-                              <button class="btn p-0 ms-2" style="background: none; border: none;">
-                                  <svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" fill="#666">
-                                      <path d="M19.53 18.47l-4.67-4.67a8 8 0 10-1.06 1.06l4.67 4.67a.75.75 0 101.06-1.06zM3 9a6 6 0 1112 0A6 6 0 013 9z" />
-                                  </svg>
-                              </button>
-
+                              <!-- Dropdown for Popular Searches -->
+                              <ul id="search_dropdown"
+                                  class="list-group position-absolute w-100 shadow-sm"
+                                  style="top: 110%; left: 0; display:none; z-index:999; max-height:200px; overflow-y:auto; border-radius:8px;">
+                                  <!-- JS will populate this -->
+                              </ul>
                           </div>
 
                           <div class="d-flex align-items-center">
@@ -118,7 +113,7 @@
   <div class="mobile-bottom-wrapper">
       <ul>
           <li class="search-bar">
-              <a class="search-btn"  style="text-decoration: none;">
+              <a class="search-btn" style="text-decoration: none;">
                   <div class="icon">
                       <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                           <path
@@ -160,7 +155,7 @@
                   </a>
               <?php else: ?>
                   <!-- If logged in, go to account page (NO modal trigger here) -->
-                  <a href="account.php"  style="text-decoration: none;">
+                  <a href="account.php" style="text-decoration: none;">
                       <div class="icon">
                           <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                               <path
@@ -173,7 +168,7 @@
           </li>
 
           <li>
-              <a href="cart-page.php"  style="text-decoration: none;">
+              <a href="cart-page.php" style="text-decoration: none;">
                   <div class="icon">
                       <span class="number">3</span>
                       <svg class="cart" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -191,7 +186,7 @@
               </a>
           </li>
           <li>
-              <a href="whislist.php"  style="text-decoration: none;">
+              <a href="whislist.php" style="text-decoration: none;">
                   <div class="icon">
                       <span class="number">3</span>
                       <svg width="32" height="24" viewBox="0 0 32 24" xmlns="http://www.w3.org/2000/svg">
@@ -230,3 +225,109 @@
           display: none !important;
       }
   </style>
+
+  <!-- Update cart badge dynamically without page reload -->
+  <script>
+    (function () {
+      function setCartCount(n) {
+        n = parseInt(n) || 0;
+        // Desktop / header .cart-area (the <span> after cart anchor)
+        document.querySelectorAll('.cart-area a[href="cart-page.php"]').forEach(function (a) {
+          var s = a.parentElement.querySelector('span');
+          if (s) s.textContent = n;
+        });
+        // Mobile bottom wrapper badge(s)
+        document.querySelectorAll('.mobile-bottom-wrapper a[href="cart-page.php"] .number').forEach(function (el) {
+          el.textContent = n;
+        });
+        document.querySelectorAll('.cart-count').forEach(function (el) {
+          el.textContent = n;
+        });
+      }
+
+      function setWishlistCount(n) {
+        n = parseInt(n) || 0;
+        // Desktop wishlist (markup uses whislist.php)
+        document.querySelectorAll('.cart-area a[href="whislist.php"]').forEach(function (a) {
+          var s = a.parentElement.querySelector('span');
+          if (s) s.textContent = n;
+        });
+        // Mobile bottom wrapper wishlist
+        document.querySelectorAll('.mobile-bottom-wrapper a[href="whislist.php"] .number').forEach(function (el) {
+          el.textContent = n;
+        });
+        document.querySelectorAll('.wishlist-count').forEach(function (el) {
+          el.textContent = n;
+        });
+      }
+
+      window.updateCartBadge = setCartCount;
+      window.updateWishlistBadge = setWishlistCount;
+
+      function applyCountsFromData(data) {
+        if (!data || typeof data !== 'object') return;
+        if (typeof data.cart_count !== 'undefined') setCartCount(data.cart_count);
+        if (typeof data.wishlist_count !== 'undefined') setWishlistCount(data.wishlist_count);
+      }
+
+      // Intercept fetch responses to pick up cart_count / wishlist_count from ajax.php
+      var origFetch = window.fetch;
+      if (origFetch) {
+        window.fetch = function (input, init) {
+          return origFetch(input, init).then(function (resp) {
+            try {
+              var cloned = resp.clone();
+              cloned.json().then(function (data) {
+                applyCountsFromData(data);
+              }).catch(function () { /* not json */ });
+            } catch (e) { }
+            return resp;
+          });
+        };
+      }
+
+      // Intercept XHR responses (for sites still using XHR)
+      (function () {
+        var origOpen = XMLHttpRequest.prototype.open;
+        var origSend = XMLHttpRequest.prototype.send;
+        XMLHttpRequest.prototype.open = function (method, url) {
+          this._url = url;
+          origOpen.apply(this, arguments);
+        };
+        XMLHttpRequest.prototype.send = function (body) {
+          this.addEventListener('load', function () {
+            try {
+              if (this._url && this._url.indexOf('ajax.php') !== -1) {
+                var json = JSON.parse(this.responseText || '{}');
+                applyCountsFromData(json);
+              }
+            } catch (e) { /* ignore parse errors */ }
+          });
+          origSend.apply(this, arguments);
+        };
+      })();
+
+      // On load, request current cart + wishlist counts
+      function fetchCartCount() {
+        fetch('ajax.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: 'get_cart_count=1'
+        }).then(function (r) { return r.json(); }).then(function (data) {
+          if (data && typeof data.cart_count !== 'undefined') setCartCount(data.cart_count);
+        }).catch(function () { /* ignore */ });
+      }
+      function fetchWishlistCount() {
+        fetch('ajax.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: 'get_wishlist_count=1'
+        }).then(function (r) { return r.json(); }).then(function (data) {
+          if (data && typeof data.wishlist_count !== 'undefined') setWishlistCount(data.wishlist_count);
+        }).catch(function () { /* ignore */ });
+      }
+
+      fetchCartCount();
+      fetchWishlistCount();
+    })();
+  </script>

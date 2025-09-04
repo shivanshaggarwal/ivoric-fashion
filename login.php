@@ -127,9 +127,9 @@ $google_login_url = $client->createAuthUrl();
                     </div>
                     
                     <!-- Google Login Button -->
-                    <a href="<?= htmlspecialchars($google_login_url) ?>" class="btn w-100 fw-semibold d-flex align-items-center justify-content-center"
-                        style="background-color: #fff; border: 1px solid #D5C7B2; color: #0F0F0F; font-family: 'Inter', sans-serif; text-decoration: none;">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" 
+                    <a href="<?= htmlspecialchars($google_login_url) ?>" 
+                    class="btn btn-outline-secondary w-100 fw-semibold d-flex align-items-center justify-content-center">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/800px-Google_%22G%22_logo.svg.png" 
                              style="height: 18px; margin-right: 10px;" alt="Google logo">
                         Continue with Google
                     </a>

@@ -44,7 +44,7 @@
 
             <form class="theme-form theme-form-2 mega-form" method="post">
 
-                <img src="../assets/images/logo.webp" style="margin: auto; width: 100%;">
+                <img src="../assets/image/Logo_1.png" style="margin: auto; width: 100%;">
                 <div class="row">
                     <div class="mb-4 row align-items-center">
                         <label class="col-lg-2 col-md-3 col-form-label form-label-title">Email

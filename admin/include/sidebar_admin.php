@@ -73,6 +73,21 @@
                     </li>
                     <li class="sidebar-list">
                         <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
+                            <i class="ri-list-check-2"></i>
+                            <span>Testimonials</span>
+                        </a>
+                        <ul class="sidebar-submenu">
+                            <li>
+                                <a href="all-testimonials.php">All Testimonials</a>
+                            </li>
+
+                            <li>
+                                <a href="add-testimonial.php">Add New Testimonial</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-list">
+                        <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
                             <i class="ri-store-3-line"></i>
                             <span>Product</span>
                         </a>

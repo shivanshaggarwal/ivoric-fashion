@@ -7,6 +7,8 @@ if (isset($_POST['submit'])) {
     $availability = get_safe_value($con, $_POST['availability']);
     $stock_num = get_safe_value($con, $_POST['stock_num']);
     $name = get_safe_value($con, $_POST['name']);
+    $sizes = isset($_POST['sizes']) ? $_POST['sizes'] : [];
+    $product_sizes = json_encode($sizes); // <- fix here
     $url = generate_seo_friendly_title($name);
     $image_alt_tag = get_safe_value($con, $_POST['image_alt_tag']);
     $category = get_safe_value($con, $_POST['category']);
@@ -20,7 +22,6 @@ if (isset($_POST['submit'])) {
     $meta_desc = get_safe_value($con, $_POST['meta_desc']);
     $meta_url = get_safe_value($con, $_POST['meta_url']);
 
-
     $image_array = $_FILES['image'];
     $image_count = count($image_array['name']);
     $array = array();
@@ -28,29 +29,26 @@ if (isset($_POST['submit'])) {
     for ($i = 0; $i < $image_count; $i++) {
         $image_name = rand(111111111, 999999999) . '_' . $image_array['name'][$i];
         $image_tmp_name = $image_array['tmp_name'][$i];
-        $image_size = $image_array['size'][$i];
-        $image_error = $image_array['error'][$i];
-        $image_type = $image_array['type'][$i];
-        array_push($array, $image_name);
-
-        // Upload the image to your desired location
         move_uploaded_file($image_tmp_name, '../media/product/' . $image_name);
+        $array[] = $image_name;
     }
 
-    echo $product_images = json_encode($array);
+    $product_images = json_encode($array); // <- fix here
 
-    $insert_query = "INSERT INTO `product`(`trending`,`hot_deals`,`availability`, `stock_num`, `url`, `name`, `image`,`image_alt_tag`,`category`,`subcategory`,`base_price`,`discounted_price`,`short_description`,`sku`,`description`,  `meta_title`,`meta_desc`,`meta_url`) 
-    VALUES ('$trending','$hot_deals','$availability', '$stock_num', '$url','$name','$product_images','$image_alt_tag','$category','$subcategory','$base_price','$discounted_price','$short_description','$sku','$description', '$meta_title','$meta_desc','$meta_url')";
+    $insert_query = "INSERT INTO `product`(`trending`,`hot_deals`,`availability`,`stock_num`,`url`,`name`,`sizes`,`image`,`image_alt_tag`,`category`,`subcategory`,`base_price`,`discounted_price`,`short_description`,`sku`,`description`,`meta_title`,`meta_desc`,`meta_url`) 
+    VALUES ('$trending','$hot_deals','$availability','$stock_num','$url','$name','$product_sizes','$product_images','$image_alt_tag','$category','$subcategory','$base_price','$discounted_price','$short_description','$sku','$description','$meta_title','$meta_desc','$meta_url')";
     mysqli_query($con, $insert_query);
-    // print_r($insert_query);
     header('location: all-product.php');
     die();
 }
 
+
 $trending = '';
 $hot_deals = '';
 if (isset($_POST['update_product_submit'])) {
-    echo $id = $_POST['id'];
+    $id = $_POST['id'];
+    $sizes = isset($_POST['sizes']) ? $_POST['sizes'] : [];
+    $product_sizes = json_encode($sizes); // <- fix here
     $trending = isset($_POST['trending']) ? 1 : 0;
     $hot_deals = isset($_POST['hot_deals']) ? 1 : 0;
     $availability = get_safe_value($con, $_POST['availability']);
@@ -93,14 +91,17 @@ if (isset($_POST['update_product_submit'])) {
         }
 
         // Encode the modified array of image names as JSON
-       echo $product_image = json_encode($new_images);
+        echo $product_image = json_encode($new_images);
     } else {
         // If no new images were provided, keep the existing images
-      echo  $product_image = $result['image'];
+        echo  $product_image = $result['image'];
     }
 
     // Update the product information in the database
-    $update_sql = "UPDATE `product` SET `trending`='$trending',`hot_deals`='$hot_deals',`availability`='$availability', `stock_num`='$stock_num', `name`='$name', `image`='$product_image', `image_alt_tag`='$image_alt_tag', `category`='$category', `subcategory`='$subcategory', `base_price`='$base_price', `discounted_price`='$discounted_price', `short_description`='$short_description', `sku`='$sku', `description`='$description', `meta_title`='$meta_title', `meta_desc`='$meta_desc',`meta_url`='$meta_url' WHERE `id`='$id'";
+    $update_sql = "UPDATE `product` SET `trending`='$trending',`hot_deals`='$hot_deals',`availability`='$availability', `stock_num`='$stock_num', `sizes`='$product_sizes',
+    `name`='$name', `image`='$product_image', `image_alt_tag`='$image_alt_tag', `category`='$category', `subcategory`='$subcategory', `base_price`='$base_price', 
+    `discounted_price`='$discounted_price', `short_description`='$short_description', `sku`='$sku', `description`='$description', `meta_title`='$meta_title',
+    `meta_desc`='$meta_desc',`meta_url`='$meta_url' WHERE `id`='$id'";
     mysqli_query($con, $update_sql);
     header('location: all-product.php');
 }

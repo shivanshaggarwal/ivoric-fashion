@@ -19,6 +19,12 @@ include('include/function.php');
 <!-- My css link -->
 <link rel="stylesheet" href="assets/css/style.css">
 <title>Ivoric Lifestyle Private Limited</title>
-<link rel="icon" href="assets/image/favicon.png" type="image/gif" sizes="20x20">
+<link rel="icon" href="assets/image/left-logo.png" type="image/gif" sizes="20x20">
 <!-- Bootstrap CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+ <!-- Swiper CSS & JS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    

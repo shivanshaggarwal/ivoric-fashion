@@ -10,9 +10,11 @@
 
 <body>
 
-    <?php include('include/header.php');
-    isLogin();
-    if (isset($_POST['price']) && $_POST['price'] != '0' && $_POST['price'] != '') {
+    <?php
+        include('include/header.php');
+        isLogin();
+        // Check if cart has items
+        if (isset($_SESSION['cart']) && count($_SESSION['cart']) > 0) {
     ?>
 
         <!-- breadcrumb section strats here -->
@@ -199,8 +201,12 @@
         </div>
         <!-- checkout section ends here -->
     <?php
+        } else {
+            // Redirect if cart is empty
+            header("Location: cart-page.php");
+            exit;
+        }
         include('include/footer.php');
-    }
     ?>
     </script>
     <!-- Add this script before </body> -->

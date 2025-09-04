@@ -8,8 +8,8 @@
     <?php include('include/head_admin.php');
 
     $url = '';
-    $trending = '';
-    $hot_deals = '';
+    // $trending = '';
+    // $hot_deals = '';
     $availability = '';
     $stock_num = '';
     $name = '';
@@ -34,8 +34,8 @@
         if ($check > 0) {
             $row = mysqli_fetch_assoc($res);
             $id = $_GET['id'];
-            $trending = $row['trending'];
-            $hot_deals = $row['hot_deals'];
+            // $trending = $row['trending'];
+            // $hot_deals = $row['hot_deals'];
             $availability = $row['availability'];
             $stock_num = $row['stock_num'];
             $url = $row['url'];
@@ -94,10 +94,10 @@
                                                     <h5>Product Information</h5>
                                                 </div>
 
-
+                                                <!-- 
                                                 <div class="row align-items-center">
                                                     <label class="col-sm-3 col-form-label form-label-title">Trending</label>
-                                                    <div class="col-sm-9">
+                                                  <div class="col-sm-9">
                                                         <label class="switch">
                                                             <input type="checkbox" name="trending" value="<?php if ($trending == '1') {
                                                                                                                 echo '1';
@@ -126,7 +126,7 @@
                                                                                                                     } ?>><span class="switch-state"></span>
                                                         </label>
                                                     </div>
-                                                </div>
+                                                </div> -->
                                                 <div class="mb-4 row align-items-center">
                                                     <label class="form-label-title col-sm-3 mb-0">Product
                                                         Name</label>
@@ -137,21 +137,19 @@
                                                 <div class="mb-4 row align-items-center">
                                                     <label class="col-sm-3 col-form-label form-label-title">Select Category</label>
                                                     <div class="col-sm-9">
-                                                        <select class="js-example-basic-single w-100" name="category" required>
+                                                        <!-- CATEGORY -->
+                                                        <select id="category" name="category" class="form-control" style="border-radius:8px; padding:10px;" required>
+                                                            <option value="" disabled <?= empty($category) ? 'selected' : '' ?>>— Choose Category —</option>
                                                             <?php
-                                                            if ($category) {
-                                                                $sql1 = "SELECT * FROM `category` WHERE `status` = '1' AND `id` = '$category'";
-                                                                $res1 = mysqli_query($con, $sql1);
-                                                                $row1 = mysqli_fetch_assoc($res1);
-                                                                echo '<option value="' . $category . '" selected>' . $row1['name'] . '</option>';
-                                                            } else {
-                                                                echo '<option value="" selected>Choose Category</option>';
-                                                            }
-
-                                                            $sql = "SELECT * FROM `category` WHERE `status` = '1'";
+                                                            $sql = "SELECT * FROM `category` 
+            WHERE `status` = '1' 
+              AND TRIM(name) <> '' 
+              AND LOWER(TRIM(name)) NOT IN ('choose category','select category')
+            ORDER BY name ASC";
                                                             $res = mysqli_query($con, $sql);
                                                             while ($row = mysqli_fetch_assoc($res)) {
-                                                                echo '<option value="' . $row['id'] . '">' . $row['name'] . '</option>';
+                                                                $selected = ($category == $row['id']) ? 'selected' : '';
+                                                                echo '<option value="' . $row['id'] . '" ' . $selected . '>' . htmlspecialchars($row['name']) . '</option>';
                                                             }
                                                             ?>
                                                         </select>
@@ -160,21 +158,18 @@
                                                 <div class="mb-4 row align-items-center">
                                                     <label class="col-sm-3 col-form-label form-label-title">Select Sub Category</label>
                                                     <div class="col-sm-9">
-                                                        <select class="js-example-basic-single w-100" name="subcategory">
+                                                        <!-- SUBCATEGORY -->
+                                                        <select id="subcategory" name="subcategory" class="form-control" style="border-radius:8px; padding:10px;">
+                                                            <option value="" disabled <?= empty($subcategory) ? 'selected' : '' ?>>— Choose Sub Category —</option>
                                                             <?php
-                                                            if ($subcategory) {
-                                                                $sql1 = "SELECT * FROM `subcategory` WHERE `id` = '$category'";
-                                                                $res1 = mysqli_query($con, $sql1);
-                                                                $row1 = mysqli_fetch_assoc($res1);
-                                                                echo '<option value="' . $subcategory . '" selected>' . $row1['name'] . '</option>';
-                                                            } else {
-                                                                echo '<option value="" selected>Choose Sub Category</option>';
-                                                            }
-
-                                                            $sql = "SELECT * FROM `subcategory`";
+                                                            $sql = "SELECT * FROM `subcategory` 
+            WHERE TRIM(name) <> '' 
+              AND LOWER(TRIM(name)) NOT IN ('choose sub category','select sub category')
+            ORDER BY name ASC";
                                                             $res = mysqli_query($con, $sql);
                                                             while ($row = mysqli_fetch_assoc($res)) {
-                                                                echo '<option value="' . $row['id'] . '">' . $row['name'] . '</option>';
+                                                                $selected = ($subcategory == $row['id']) ? 'selected' : '';
+                                                                echo '<option value="' . $row['id'] . '" ' . $selected . '>' . htmlspecialchars($row['name']) . '</option>';
                                                             }
                                                             ?>
                                                         </select>
@@ -225,7 +220,7 @@
                                                         <input class="form-control" type="text" name="short_description" value="<?= $short_description ?>" placeholder="Short Description" required>
                                                     </div>
                                                 </div>
-                                                <div class="row">
+                                                <div class="row mb-4">
                                                     <label class="form-label-title col-sm-12 mb-0">Product
                                                         Description</label>
                                                     <div class="col-sm-12">
@@ -234,20 +229,37 @@
                                                 </div>
 
                                                 <div class="mb-4 row align-items-center">
-                                                    <label class="col-sm-3 col-form-label form-label-title">Stock
-                                                        Status</label>
+                                                    <label class="form-label-title col-sm-3 mb-0">Available Sizes</label>
+                                                    <div class="col-sm-9 d-flex flex-wrap gap-2">
+                                                        <?php
+                                                        $existing_sizes = isset($row['sizes']) ? json_decode($row['sizes'], true) : [];
+                                                        $all_sizes = ['S', 'M', 'L', 'XL', 'XXL'];
+                                                        ?>
+                                                        <?php foreach ($all_sizes as $size): ?>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox"
+                                                                    name="sizes[]" value="<?= $size ?>"
+                                                                    id="size_<?= $size ?>"
+                                                                    <?= in_array($size, $existing_sizes) ? 'checked' : '' ?>>
+                                                                <label class="form-check-label" for="size_<?= $size ?>"><?= $size ?></label>
+                                                            </div>
+                                                        <?php endforeach; ?>
+                                                    </div>
+                                                </div>
+
+
+
+                                                <div class="mb-4 row align-items-center">
+                                                    <label class="col-sm-3 col-form-label form-label-title">Stock Status</label>
                                                     <div class="col-sm-9">
-                                                        <select class="js-example-basic-single w-100" name="availability" required>
-                                                            <?php if ($availability) { ?>
-                                                                <option value="<?php echo $availability; ?>" selected><?php echo $availability; ?></option>
-                                                            <?php } else { ?>
-                                                                <option value="" selected>Choose Availability</option>
-                                                            <?php } ?>
-                                                            <option value="In Stock">In Stock</option>
-                                                            <option value="Out Of Stock">Out Of Stock</option>
+                                                        <select id="availability" name="availability" class="form-control w-100" required>
+                                                            <option value="" disabled <?= empty($availability) ? 'selected' : '' ?>>— Choose Availability —</option>
+                                                            <option value="In Stock" <?= ($availability == 'In Stock') ? 'selected' : '' ?>>In Stock</option>
+                                                            <option value="Out Of Stock" <?= ($availability == 'Out Of Stock') ? 'selected' : '' ?>>Out Of Stock</option>
                                                         </select>
                                                     </div>
                                                 </div>
+
                                                 <div class="mb-4 row align-items-center">
                                                     <label class="form-label-title col-sm-3 mb-0">Stock No.</label>
                                                     <div class="col-sm-9">
@@ -272,11 +284,11 @@
                                                         <input class="form-control" name="discounted_price" value="<?php echo $discounted_price ?>" type="text" placeholder="Discounted Price" required>
                                                     </div>
                                                 </div>
-                                          
+
                                             </div>
                                         </div>
 
-                        
+
 
                                         <div class="card">
                                             <div class="card-body">

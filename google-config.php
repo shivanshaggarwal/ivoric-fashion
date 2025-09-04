@@ -9,11 +9,11 @@ require_once 'google-api-php-client-main\vendor\autoload.php';
 // $client->addScope("email");
 // $client->addScope("profile");
 
-
-
 $client = new Google_Client();
 $client->setClientId("274799735908-8fhq5kb8pogjlmfpq2g2055ocg3c9bvr.apps.googleusercontent.com");
 $client->setClientSecret("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");
 $client->setRedirectUri("http://localhost/preview-new-2/login.php");
 $client->addScope("email");
 $client->addScope("profile");
+
+

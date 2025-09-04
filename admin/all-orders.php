@@ -114,7 +114,7 @@
                                                             </td> -->
                                                             <td><b><?php echo $row['date'] ?></b></td>
                                                             <td><b><?php echo $row['order_id'] ?></b></td>
-                                                            <td><?php echo $row['fname'] . " " . $row['lname'] ?></td>
+                                                            <td><?php echo $row['name'] ?></td>
                                                             <td><?php
                                                                 $product_name = json_decode($row['product_name']);
                                                                 for ($i = 0; $i < count($product_name); $i++) {
@@ -258,6 +258,5 @@
 </body>
 
 
-<!-- Mirrored from themes.pixelstrap.com/fastkart/back-end/order-list.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 10 Apr 2024 05:07:00 GMT -->
 
 </html>

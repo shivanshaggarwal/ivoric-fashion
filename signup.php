@@ -102,29 +102,6 @@ $google_signup_url = $client->createAuthUrl();
                                 name="phone" placeholder="Phone Number *" style="background-color:transparent;">
                         </div>
 
-                        <!-- Address -->
-                        <div class="mb-3">
-                            <input type="text" class="form-control border-0 border-bottom rounded-0 shadow-none"
-                                name="address" placeholder="Enter Address" required style="background-color:transparent;">
-                        </div>
-
-                        <!-- City -->
-                        <div class="mb-3">
-                            <input type="text" class="form-control border-0 border-bottom rounded-0 shadow-none"
-                                name="city" placeholder="Enter City" required style="background-color:transparent;">
-                        </div>
-
-                        <!-- State -->
-                        <div class="mb-3">
-                            <input type="text" class="form-control border-0 border-bottom rounded-0 shadow-none"
-                                name="state" placeholder="Enter State" required style="background-color:transparent;">
-                        </div>
-
-                        <!-- Pincode -->
-                        <div class="mb-3">
-                            <input type="text" class="form-control border-0 border-bottom rounded-0 shadow-none"
-                                name="pincode" placeholder="Enter Pincode" required style="background-color:transparent;">
-                        </div>
 
                         <!-- Password -->
                         <div class="mb-3 position-relative">
@@ -162,9 +139,8 @@ $google_signup_url = $client->createAuthUrl();
                         </div>
                         
                         <!-- Google Signup Button -->
-                        <a href="<?= htmlspecialchars($google_signup_url) ?>" class="btn w-100 fw-semibold d-flex align-items-center justify-content-center"
-                            style="background-color: #fff; border: 1px solid #D5C7B2; color: #0F0F0F; font-family: 'Inter', sans-serif; text-decoration: none;">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" 
+                        <a href="<?= htmlspecialchars($google_signup_url) ?>" class="btn btn-outline-secondary w-100 fw-semibold d-flex align-items-center justify-content-center">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/800px-Google_%22G%22_logo.svg.png" 
                                  style="height: 18px; margin-right: 10px;" alt="Google logo">
                             Continue with Google
                         </a>

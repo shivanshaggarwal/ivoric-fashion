@@ -214,7 +214,7 @@
                                                     <div class="row g-4">
                                                         <h4>Personal Details</h4>
                                                         <ul class="order-details">
-                                                            <li>Name: <?php echo $row['fname'] . " " . $row['lname'] ?></li>
+                                                            <li>Name: <?php echo $row['name'] ?></li>
                                                             <li>Email: <?php echo $row['email'] ?></li>
                                                             <li>Mobile No.: <?php echo $row['phone'] ?></li>
                                                         </ul>
