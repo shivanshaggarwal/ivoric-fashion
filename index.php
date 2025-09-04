@@ -5,6 +5,45 @@
     <?php
     include('include/head.php');
     ?>
+    <style>
+        .swiper,
+        .responsivebanner,
+        .responsiveban {
+            width: 100%;
+            height: auto;
+        }
+
+        .responsiveban img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            display: block;
+        }
+
+
+        /* ...existing code... */
+        @media (max-width: 768px) {
+
+            .banner-swiper,
+            .banner-swiper .swiper-wrapper,
+            .banner-swiper .swiper-slide {
+                height: 100vw !important;
+                min-height: 450px;
+                max-height: 150vw;
+            }
+
+            .banner-swiper .swiper-slide img {
+                width: 200vw;
+                height: 100%;
+                object-fit: cover !important;
+                display: block;
+            }
+        }
+
+        /* ...existing code... */
+
+        /* ...existing code... */
+    </style>
 </head>
 
 <body>
@@ -18,17 +57,18 @@
     <div class="px-0 mb-100">
         <div class="swiper banner-swiper">
 
-            <div class="swiper-wrapper">
+            <div class="swiper-wrapper responsivebanner">
                 <?php
                 $sql = mysqli_query($con, "SELECT * FROM banner");
                 while ($banner = mysqli_fetch_assoc($sql)) {
                 ?>
-                    <div class="swiper-slide text-center">
+                    <div class="swiper-slide responsiveban text-center">
                         <a href="<?= !empty($banner['link']) ? $banner['link'] : '#' ?>"
                             title="<?= $banner['image_alt_tag'] ?>">
                             <img src="media/banner/<?= $banner['image'] ?>"
                                 alt="<?= $banner['image_alt_tag'] ?>"
-                                class="img-fluid" style="width: 100%; height: auto; max-height: 100vh; object-fit: cover;">
+                                class="img-fluid w-100">
+
                         </a>
                     </div>
                 <?php } ?>
@@ -43,17 +83,15 @@
         </div>
     </div>
 
-
-
     <!-- Banner section ends here -->
 
     <!-- Best selling product section strats here -->
-    <div class="home1-product-section mb-100 ">
+    <div style="margin-bottom: 150px !important;" class="home1-product-section mb-100">
         <div class="container">
             <div class="row wow animate fadeInDown" data-wow-delay="200ms" data-wow-duration="1500ms">
                 <div class="col-lg-12 mb-50">
                     <div class="section-title text-center">
-                        <h3>Best-Selling Essentials</h3>
+                        <h3>Featured Products</h3>
                         <p>A curated selection of timeless pieces, thoughtfully designed to elevate your everyday wardrobe.</p>
                     </div>
 
@@ -112,8 +150,8 @@
                                                     <li>
                                                         <?php if (!empty($_SESSION['u_email']) && !empty($_SESSION['u_id'])): ?>
                                                             <a href="javascript:void(0);"
-                                                               onclick="add_to_wishlist('<?= $product['id'] ?>','<?= $_SESSION['u_id'] ?>')"
-                                                               class="buttonLInk radious50">
+                                                                onclick="add_to_wishlist('<?= $product['id'] ?>','<?= $_SESSION['u_id'] ?>')"
+                                                                class="buttonLInk radious50">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
                                                                     <path d="M16.528 2.20919C16.0674 1.71411 15.5099 1.31906 14.8902 1.04859C14.2704 0.778112 13.6017 0.637996 12.9255 0.636946C12.2487 0.637725 11.5794 0.777639 10.959 1.048C10.3386 1.31835 9.78042 1.71338 9.31911 2.20854L9.00132 2.54436L8.68352 2.20854C6.83326 0.217151 3.71893 0.102789 1.72758 1.95306C1.63932 2.03507 1.5541 2.12029 1.47209 2.20854C-0.490696 4.32565 -0.490696 7.59753 1.47209 9.71463L8.5343 17.1622C8.77862 17.4201 9.18579 17.4312 9.44373 17.1868C9.45217 17.1788 9.46039 17.1706 9.46838 17.1622L16.528 9.71463C18.4907 7.59776 18.4907 4.32606 16.528 2.20919ZM15.5971 8.82879H15.5965L9.00132 15.7849L2.40553 8.82879C0.90608 7.21113 0.90608 4.7114 2.40553 3.09374C3.76722 1.61789 6.06755 1.52535 7.5434 2.88703C7.61505 2.95314 7.68401 3.0221 7.75012 3.09374L8.5343 3.92104C8.79272 4.17781 9.20995 4.17781 9.46838 3.92104L10.2526 3.09438C11.6142 1.61853 13.9146 1.52599 15.3904 2.88767C15.4621 2.95378 15.531 3.02274 15.5971 3.09438C17.1096 4.71461 17.1207 7.2189 15.5971 8.82879Z"></path>
                                                                 </svg>
@@ -186,7 +224,7 @@
     <!-- Best selling product section ends here -->
 
     <!-- Categori section strats here -->
-    <div class="categori-section mb-100">
+    <div style="margin-bottom: 150px !important;" class="categori-section mb-100">
         <div class="container">
             <div class="row wow animate fadeInDown" data-wow-delay="200ms" data-wow-duration="1500ms">
                 <div class="col-lg-12 d-flex align-items-center mb-60">
@@ -226,7 +264,7 @@
     <!-- Categori section ends here -->
 
 
-    <section id="our-story" class="m-5">
+    <section style="margin-bottom: 200px !important;" id="our-story" class="m-5">
         <div class="container">
             <div class="row gap-2">
                 <div class="col-md-6" data-aos="fade-up">
@@ -254,69 +292,7 @@
             </div>
         </div>
     </section>
-
-
-
-
-    <!-- Shop about section strats here -->
-    <div class="shop-banner-section mb-100">
-        <div class="container">
-            <div class="row gy-4">
-                <div class="col-lg-6 wow animate fadeInLeft" data-wow-delay="200ms" data-wow-duration="1500ms">
-                    <div class="shop-banner-image">
-                        <img src="assets/image/home1/anout.png" alt="">
-                    </div>
-                </div>
-                <div class="col-lg-6 d-flex align-items-center justify-content-center wow animate fadeInRight"
-                    data-wow-delay="200ms" data-wow-duration="1500ms">
-                    <div class="shop-banner-content">
-                        <a href="#" class="about-us-btn">about Us</a>
-                        <h3><a href="#">Where Style Meets Elegance</a></h3>
-                        <p>At Ivoric Lifestyle Private Limited, we are proud to be crafted in India.
-                            Ivoric is an affordable premium clothing and lifestyle brand that blends
-                            Indian craftsmanship with global standards of luxury.
-                            <br>
-
-                            We believe that true style is timeless - defined not by trends, but by quality,
-                            comfort, and purpose. Our mission is to create exceptional wardrobe essentials
-                            that elevate everyday life - refined, versatile pieces that reflect elegance,
-                            utility, and modern minimalism.
-
-                        </p>
-                        <a href="about.php" class="primary-btn2 learn-btn">VIEW MORE</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Shop about section ends here -->
-
-    <!--  collection section strats here -->
-    <div class="collection-section mb-100">
-        <div class="container">
-            <div class="row gy-4">
-                <div class="col-lg-6 wow animate fadeInLeft" data-wow-delay="200ms" data-wow-duration="1500ms">
-                    <div class="fashion-area">
-                        <img src="assets/image/home1/fashion-image.jpg" alt="">
-                        <div class="fashion-area-content ">
-                            <h3>Ivoric Premium Apparel</h3>
-                            <a href="category.php">View All Collections</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 wow animate fadeInRight" data-wow-delay="200ms" data-wow-duration="1500ms">
-                    <div class="jwelry-area">
-                        <img src="assets/image/home1/jewelry-image.jpg" alt="">
-                        <div class="jwelry-area-content ">
-                            <h3>Ivoric Designer Wear</h3>
-                            <a href="category.php" class="primary-btn">SHOP NOW</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--  collection section ends here -->
+ 
 
     <!-- tesimonial section strats here -->
     <div class="testimonial-section2 mb-100">
@@ -391,35 +367,7 @@
 
     <!-- tesimonial section ends here -->
 
-    <!-- Newsletter section strats here -->
-    <div class="newsletter-section mb-100">
-        <div class="container">
-            <div class="row g-0 p-0 wow animate fadeInDown" data-wow-delay="200ms" data-wow-duration="1500ms">
-                <div class="col-lg-4">
-                    <div class="newsletter-image">
-                        <img src="assets/image/home1/newsletter-image.png" alt="">
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="nwesletter-card">
-                        <div class="newsletter-content text-center">
-                            <span>Newsletter</span>
-                            <h3>Subscribe for all the latest Offer & discounts</h3>
-                            <div class="input-area">
-                                <input type="email" placeholder="Your email Address">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="newsletter-image">
-                        <img src="assets/image/home1/newsletter-image2.png" alt="">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Newsletter section ends here -->
+
 
     <?php
     include('include/footer.php');

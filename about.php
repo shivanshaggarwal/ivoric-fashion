@@ -15,20 +15,7 @@
             --soft-gold: #CBB275;
         }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            color: var(--onyx-black);
-        }
-
-        h1,
-        h2,
-        h3,
-        h4 {
-            font-family: 'Playfair Display', serif;
-            text-transform: uppercase;
-            font-weight: 700;
-        }
-
+   
         section {
             padding: 80px 0;
         }
@@ -192,7 +179,6 @@
         }
 
         .stat-number {
-            font-family: 'Playfair Display', serif;
             font-size: 3rem;
             font-weight: 700;
             color: var(--soft-gold);
@@ -356,12 +342,10 @@
             background-color: #F6F4F2;
             /* Ivory White */
             padding: 5rem 0;
-            font-family: 'Inter', sans-serif;
         }
 
         /* Headings */
         .section-title {
-            font-family: 'Playfair Display', serif;
             font-weight: bold;
             text-transform: uppercase;
             font-size: 2.5rem;
@@ -393,7 +377,6 @@
         }
 
         .vision-statement blockquote {
-            font-family: 'Playfair Display', serif;
             font-size: 1.4rem;
             color: #6E6259;
             font-style: italic;
@@ -408,7 +391,6 @@
         }
 
         .subtitle {
-            font-family: 'Playfair Display', serif;
             text-transform: uppercase;
             font-size: 1.5rem;
             font-weight: bold;
@@ -427,7 +409,6 @@
             position: absolute;
             left: 0;
             top: 0;
-            font-family: 'Playfair Display', serif;
             font-size: 1.4rem;
             color: #CBB275;
             font-weight: bold;
@@ -477,7 +458,7 @@
 
                 <!-- Content -->
                 <div class="col-lg-6" data-aos="fade-left">
-                    <h2 class="fw-bold text-uppercase mb-4" style="font-family: 'Playfair Display', serif; color: #0F0F0F;">
+                    <h2 class="fw-bold text-uppercase mb-4" style="color: #0F0F0F;">
                         Craftsmanship & Fabric Quality
                     </h2>
 

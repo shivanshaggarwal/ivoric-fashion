@@ -94,14 +94,14 @@
                                      </svg>
                                  </a>
                              </li>
-                             <li>
+                             <!-- <li>
                                  <a href="my-account.php">
                                      My Account
                                      <svg width="6" height="6" viewBox="0 0 6 6" xmlns="http://www.w3.org/2000/svg">
                                          <circle cx="3" cy="3" r="3" />
                                      </svg>
                                  </a>
-                             </li>
+                             </li> -->
                              <li>
                                  <a href="about.php">
                                      About Us
@@ -116,7 +116,7 @@
                  <div class="col-lg-2 col-md-4 col-sm-6 d-flex justify-content-lg-end ">
                      <div class="footer-widget">
                          <div class="widget-title">
-                             <h5>More Info</h5>
+                             <h5>Policies</h5>
                          </div>
                          <ul class="widget-list">
                              <li>
@@ -180,7 +180,7 @@
                                  <div class="call-now-content">
                                      <span>Chat On Whatsapp</span>
                                      <h4>
-                                         <a href="tel:18779876401">1-877-987-6401</a>
+                                         <a href="tel:7905150529">+91-7905150529</a>
                                      </h4>
                                  </div>
                              </div>

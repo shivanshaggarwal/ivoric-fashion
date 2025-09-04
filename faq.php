@@ -4,12 +4,10 @@
 
 <head>
     <?php include('include/head.php');  ?>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter&display=swap"
-        rel="stylesheet">
+  
     <style>
         body {
             background-color: #F6F4F2;
-            font-family: 'Inter', sans-serif;
             color: #0F0F0F;
         }
 
@@ -20,7 +18,6 @@
         }
 
         .faq-heading {
-            font-family: 'Playfair Display', serif;
             font-size: 2.5rem;
             text-transform: uppercase;
             text-align: center;

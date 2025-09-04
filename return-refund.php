@@ -21,9 +21,9 @@
     <!-- breadcrumb section ends here -->
 
     <!-- Return and Refund Policy Section -->
-    <section class="return-policy-section py-5" style="background-color: #F6F4F2; font-family: 'Inter', sans-serif;">
+    <section class="return-policy-section py-5" style="background-color: #F6F4F2;">
         <div class="container">
-            <h2 class="text-uppercase fw-bold mb-4 text-center" style="font-family: 'Playfair Display', serif; color: #0F0F0F;">Return & Refund Policy</h2>
+            <h2 class="text-uppercase fw-bold mb-4 text-center" style="color: #0F0F0F;">Return & Refund Policy</h2>
 
             <!-- Open Box Delivery -->
             <div class="policy-block mb-5 fade-in-up">

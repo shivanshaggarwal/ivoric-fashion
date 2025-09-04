@@ -87,7 +87,7 @@ $google_signup_url = $client->createAuthUrl();
                         <!-- Username -->
                         <div class="mb-3">
                             <input type="text" class="form-control border-0 border-bottom rounded-0 shadow-none"
-                                name="name" placeholder="User Name *" style="background-color:transparent; font-family:'Inter', sans-serif;">
+                                name="name" placeholder="Full Name *" style="background-color:transparent; font-family:'Inter', sans-serif;">
                         </div>
 
                         <!-- Email -->
@@ -150,7 +150,7 @@ $google_signup_url = $client->createAuthUrl();
                     <div class="text-center mt-3">
                         <small style="font-family: 'Inter', sans-serif; color: #6E6259;">
                             Already have an account?
-                            <a href="login.php" style="color: #CBB275; text-decoration: none;">Log In</a>
+                            <a href="login.php" style="color: #000000ff; text-decoration: none;"><b>Log In</b></a>
                         </small>
                     </div>
                 </div>

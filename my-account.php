@@ -74,7 +74,8 @@
     // Total orders
     $orderQuery = mysqli_query($con, "SELECT COUNT(*) as total FROM `orders` WHERE `u_id` = $id");
     $orderData = mysqli_fetch_assoc($orderQuery);
-    $totalOrders = $orderData['total_orders'] ?? 0;
+    $totalOrders = $orderData['total'] ?? 0;
+
 
     // Pending orders
     $pendingQuery = mysqli_query($con, "SELECT COUNT(*) AS pending_orders FROM `orders` WHERE `u_id` = '$id' AND `order_status` = 'pending'");
@@ -86,25 +87,31 @@
     $wishlistData = mysqli_fetch_assoc($wishlistQuery);
     $wishlistCount = $wishlistData['wishlist_count'] ?? 0;
 
-    $orderLimit = 5; // default limit
 
-    if (isset($_GET['order_limit'])) {
-        $limit = intval($_GET['order_limit']);
-        if (in_array($limit, [3, 5, 15, 20])) {
-            $orderLimit = $limit;
-        }
-    }
 
-    $ordersQuery = mysqli_query($con, "SELECT * FROM `orders` WHERE `u_id` = '$id' ORDER BY `created_at` DESC LIMIT $orderLimit");
+
+    // Replace this with however you're setting the user ID
+    $id = $_SESSION['u_id']; // or however your login system works
+
+    // Fetch all orders for this user
+    $ordersQuery = mysqli_query($con, "
+    SELECT order_id, product_name, final_price, delivery
+    FROM orders
+    WHERE u_id = '$id'
+    ORDER BY created_at DESC
+");
+
+    // Store results
     $orders = [];
     if ($ordersQuery && mysqli_num_rows($ordersQuery) > 0) {
         while ($row = mysqli_fetch_assoc($ordersQuery)) {
             $orders[] = $row;
         }
     }
-
-
     ?>
+
+
+
     <!-- breadcrumb section strats here -->
     <div class="breadcrumb-section mb-100"
         style="background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url(assets/image/inner-page/breadcrumbs-image5.jpg);">
@@ -120,11 +127,6 @@
                     <div class="dashboard-left">
                         <div class="nav flex-column nav-pills " id="v-pills-tab" role="tablist"
                             aria-orientation="vertical">
-                            <button class="nav-link active nav-btn-style mx-auto" id="v-pills-dashboard-tab"
-                                data-bs-toggle="pill" data-bs-target="#v-pills-dashboard" type="button" role="tab"
-                                aria-controls="v-pills-dashboard" aria-selected="true">
-                                <i class="fas fa-chart-bar" style="font-size: 20px;margin-right: 10px;"></i>
-                                Dashboard</button>
                             <button class="nav-link nav-btn-style mx-auto" id="v-pills-profile-tab"
                                 data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab"
                                 aria-controls="v-pills-profile" aria-selected="true"><i class="fa-solid fa-user" style="font-size: 20px;margin-right: 10px;"></i>
@@ -142,62 +144,9 @@
                 </div>
                 <div class="col-lg-9">
                     <div class="tab-content" id="v-pills-tabContent">
-                        <div class="tab-pane fade show active" id="v-pills-dashboard" role="tabpanel"
-                            aria-labelledby="v-pills-dashboard-tab">
-                            <div class="dashboard-area">
-                                <h6>Hello, <strong><?php echo htmlspecialchars($user['name']); ?>!</strong></h6>
+                       
 
-                                <p>From your My Account Dashboard you have the ability to view a snapshot of your recent account activity and update your account information. Select a link below to view or edit information.</p>
-                                <div class="row g-4 mt-30">
-                                    <div class="col-md-4 col-sm-6">
-                                        <div class="dashboard-card">
-                                            <div class="header">
-                                                <h5>Total Order</h5>
-                                            </div>
-                                            <div class="body">
-                                                <div class="counter-item">
-                                                    <h2 class="counter"><?php echo $totalOrders; ?></h2>
-                                                </div>
-                                                <div class="icon">
-                                                    <i class="fa-solid fa-thumbs-up" style="font-size: 50px;"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 col-sm-6">
-                                        <div class="dashboard-card">
-                                            <div class="header">
-                                                <h5>Pending Orders</h5>
-                                            </div>
-                                            <div class="body">
-                                                <div class="counter-item">
-                                                    <h2 class="counter"><?php echo $pendingOrders; ?></h2>
-                                                </div>
-                                                <div class="icon">
-                                                    <i class="fa-solid fa-clock" style="font-size: 50px;"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 col-sm-6">
-                                        <div class="dashboard-card">
-                                            <div class="header">
-                                                <h5>Wishlist</h5>
-                                            </div>
-                                            <div class="body">
-                                                <div class="counter-item">
-                                                    <h2 class="counter"><?php echo $wishlistCount; ?></h2>
-                                                </div>
-                                                <div class="icon">
-                                                    <i class="fa-solid fa-heart" style="font-size: 50px;"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="v-pills-profile" role="tabpanel"
+                        <div class="tab-pane fade show active" id="v-pills-profile" role="tabpanel"
                             aria-labelledby="v-pills-profile-tab">
                             <div class="dashboard-profile">
                                 <div class="table-title-area">
@@ -272,16 +221,6 @@
                             <!-- table title-->
                             <div class="table-title-area">
                                 <h3>My Order</h3>
-                                <form method="GET" id="order-limit-form">
-                                    <input type="hidden" name="tab" value="purchase">
-                                    <select name="order_limit" onchange="document.getElementById('order-limit-form').submit()">
-                                        <option value="5" <?php if ($orderLimit == 5) echo 'selected'; ?>>Show: Last 05 Orders</option>
-                                        <option value="3" <?php if ($orderLimit == 3) echo 'selected'; ?>>Show: Last 03 Orders</option>
-                                        <option value="15" <?php if ($orderLimit == 15) echo 'selected'; ?>>Show: Last 15 Orders</option>
-                                        <option value="20" <?php if ($orderLimit == 20) echo 'selected'; ?>>Show: Last 20 Orders</option>
-                                    </select>
-                                </form>
-
                             </div>
 
                             <!-- table -->
@@ -289,7 +228,7 @@
                                 <table class="eg-table order-table table mb-0">
                                     <thead>
                                         <tr>
-                                            <th>Image</th>
+                                            <!-- <th>Image</th> -->
                                             <th>Order ID</th>
                                             <th>Product Details</th>
                                             <th>price</th>
@@ -300,23 +239,38 @@
                                         <?php if (!empty($orders)): ?>
                                             <?php foreach ($orders as $order): ?>
                                                 <tr>
-                                                    <td data-label="Image">
-                                                        <img src="<?php echo htmlspecialchars($order['product_image']); ?>" alt="" style="width: 60px;">
-                                                    </td>
                                                     <td data-label="Order ID">#<?php echo htmlspecialchars($order['order_id']); ?></td>
-                                                    <td data-label="Product Details"><?php echo htmlspecialchars($order['product_name']); ?></td>
-                                                    <td data-label="price">$<?php echo number_format($order['price'], 2); ?></td>
-                                                    <td data-label="Status" class="<?php echo strtolower($order['status']) === 'shipped' ? 'text-green' : 'text-red'; ?>">
-                                                        <?php echo ucfirst($order['status']); ?>
+                                                    <td data-label="Product Details">
+                                                        <?php
+                                                        $productName = $order['product_name'];
+
+                                                        // Try to decode JSON string to array
+                                                        $decoded = json_decode($productName, true);
+
+                                                        // If it's a valid array after decoding, use it
+                                                        if (is_array($decoded)) {
+                                                            echo htmlspecialchars(implode(', ', $decoded));
+                                                        } else {
+                                                            echo htmlspecialchars($productName);
+                                                        }
+                                                        ?>
+                                                    </td>
+
+
+                                                    <td data-label="Price"><?php echo number_format((float)$order['final_price'], 2); ?></td>
+                                                    <td data-label="Status" class="<?php echo strtolower($order['delivery']) === 'shipped' ? 'text-green' : 'text-red'; ?>">
+                                                        <?php echo ucfirst($order['delivery']); ?>
                                                     </td>
                                                 </tr>
                                             <?php endforeach; ?>
                                         <?php else: ?>
                                             <tr>
-                                                <td colspan="5" class="text-center">No orders found.</td>
+                                                <td colspan="4" class="text-center">No orders found.</td>
                                             </tr>
                                         <?php endif; ?>
                                     </tbody>
+
+
 
                                 </table>
                             </div>

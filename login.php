@@ -139,7 +139,7 @@ $google_login_url = $client->createAuthUrl();
                 <div class="text-center mt-3">
                     <small style="font-family: 'Inter', sans-serif; color: #6E6259;">
                         Not a member yet?
-                        <a href="signup.php" style="color: #CBB275; text-decoration: none;">Sign Up</a>
+                        <a href="signup.php" style="color: #000000ff; text-decoration: none;"><b>Sign Up</b></a>
                     </small>
                 </div>
             </div>
