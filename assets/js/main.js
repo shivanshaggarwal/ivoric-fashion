@@ -195,11 +195,11 @@
 
 	var swiper = new Swiper(".menu-product-slider", {
 		slidesPerView: 1,
-		speed: 1500,
+		speed: 5000,
 		spaceBetween: 30,
 		loop: true,
 		autoplay: {
-			delay: 2500, // Autoplay duration in milliseconds
+			delay: 10000, // Autoplay duration in milliseconds
 			disableOnInteraction: false,
 		},
 
@@ -302,7 +302,7 @@
 		slidesPerView: 1,
 		speed: 1500,
 		spaceBetween: 30,
-		loop: true,
+		loop: false,
 		autoplay: {
 			delay: 2500, // Autoplay duration in milliseconds
 			disableOnInteraction: false,
@@ -317,32 +317,14 @@
 		},
 
 		breakpoints: {
-			280: {
-				slidesPerView: 1,
-			},
-			386: {
-				slidesPerView: 1,
-			},
-			576: {
-				slidesPerView: 2,
-				spaceBetween: 15,
-			},
-			768: {
-				slidesPerView: 2,
-				spaceBetween: 15,
-			},
-			992: {
-				slidesPerView: 3,
-				spaceBetween: 20,
-			},
-			1200: {
-				slidesPerView: 4,
-				spaceBetween: 15,
-			},
-			1400: {
-				slidesPerView: 4,
-			},
-		}
+        // ensure small phones show 3 slides
+        0:   { slidesPerView: 2, spaceBetween: 8 },   // covers very small screens
+        320: { slidesPerView: 3, spaceBetween: 8 },
+        576: { slidesPerView: 3, spaceBetween: 12 },  // <=576 -> 3 cards
+        768: { slidesPerView: 3, spaceBetween: 15 },
+        992: { slidesPerView: 4, spaceBetween: 20 },
+        1200:{ slidesPerView: 4, spaceBetween: 20 }
+      }
 
 	});
 	var swiper = new Swiper(".home1-product-swiper2", {

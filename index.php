@@ -38,8 +38,12 @@
                 object-fit: cover !important;
                 display: block;
             }
+        }@media (max-width: 576px) {
+            .categori-section .categori-content a img {
+                width: 120px;
+                height: 120px;
+            }
         }
-
         /* ...existing code... */
 
         /* ...existing code... */
@@ -97,8 +101,8 @@
 
                 </div>
             </div>
-            <div class="row wow animate fadeInUp" data-wow-delay="200ms" data-wow-duration="1500ms">
-                <div class="col-lg-12 position-relative">
+            <div class="row wow animate fadeInUp" data-wow-delay="250ms" data-wow-duration="1500ms">
+                <div class="col-lg-12 position-relative ">
                     <div class="swiper home1-product-swiper">
                         <div class="swiper-wrapper">
                             <?php
@@ -118,11 +122,11 @@
                                             <a href="product-details.php?url=<?= $product['url'] ?>">
                                                 <img src="media/product/<?= $firstImage ?>" alt="<?= htmlspecialchars($product['name']) ?>">
                                             </a>
-                                            <div class="batch">
+                                            <div class="batch w-25 w-md-35">
                                                 <?php if ($discount > 0) { ?>
                                                     <span class="new"><?= $discount ?>% off</span>
                                                 <?php } ?>
-                                                <span>Hot deal</span>
+                                                <span class="px-0">Hot deal</span>
                                             </div>
                                             <div class="overlay">
                                                 <div class="cart-area">
@@ -236,7 +240,7 @@
                     </div> -->
                 </div>
             </div>
-            <div class="row g-4 row-cols-xxl-6 row-cols-xl-5 row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-2 justify-content-center">
+            <div class="row g-4 row-cols-xxl-6 row-cols-xl-5 row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-3 justify-content-start justify-content-md-center">
                 <?php
                 $catRes = mysqli_query($con, "SELECT * FROM category WHERE status = 1 ORDER BY name ASC");
                 $delay = 200; // initial animation delay
